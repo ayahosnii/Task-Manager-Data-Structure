@@ -15,13 +15,19 @@ if (!isset($_SESSION['linked_list'])) {
 $list = $_SESSION['linked_list'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $item = $_POST['selectTask'] ?? null;
     $data = $_POST['task'];
-    $list->insert($data);
-}
 
-include 'views' . DIRECTORY_SEPARATOR . 'todolist.html';
+    if ($item === null) {
+        $list->insertFirst($data);
+    } else {
+        $list->insertBefore($item, $data);
+    }
+}
 
 ?>
 
 
-
+<?php
+include 'views' . DIRECTORY_SEPARATOR . 'todolist.html';
+?>

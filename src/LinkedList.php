@@ -16,7 +16,24 @@ class LinkedList
         return $this->head === null;
     }
 
-    public function insert($data)
+    public function isFound($item)
+    {
+        $found = false;
+        $temp = $this->head;
+        while ($temp != NULL)
+        {
+
+            if ($temp == $item)
+            {
+                $found = true;
+                break;
+            }
+            $temp = $temp->next;
+        }
+        return $found;
+    }
+
+    public function insertFirst($data)
     {
         $newNode = new Node($data);
 
@@ -29,6 +46,25 @@ class LinkedList
             $this->head = $newNode;
         }
     }
+    public function insertBefore($item, $newValue)
+    {
+        if ($this->isEmpty()) {
+            $this->insertFirst($newValue);
+        } else {
+            $newNode = new Node($newValue);
+            $temp = $this->head;
+
+            while ($temp !== null && $temp->data !== $item) {
+                $temp = $temp->next;
+            }
+
+            $newNode->next = $temp->next;
+            $temp->next = $newNode;
+        }
+    }
+
+
+
 
     public function display()
     {

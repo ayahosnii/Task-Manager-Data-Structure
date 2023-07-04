@@ -34,7 +34,8 @@
                     <div class="card-body">
                         <h4 class="card-title">Linked List of DS in Todo list</h4>
                         <form method="post" class="add-items d-flex">
-                            <select>
+                            <select name="selectTask">
+                                <option selected disabled>Select a task</option>
                                 <?php
                                 $temp = $list->display();
                                 while ($temp !== null) {
