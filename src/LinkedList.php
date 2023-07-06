@@ -5,10 +5,13 @@ namespace src;
 class LinkedList
 {
     public $head;
+    public $top;
 
     public function __construct()
     {
         $this->head = NULL;
+        $this->top = NULL;
+
     }
 
     public function isEmpty()
@@ -33,10 +36,8 @@ class LinkedList
         return $found;
     }
 
-    public function insertFirst($data)
+    public function insertFirst($newNode)
     {
-        $newNode = new Node($data);
-
         if ($this->isEmpty())
         {
             $newNode->next = NULL;
@@ -46,12 +47,11 @@ class LinkedList
             $this->head = $newNode;
         }
     }
-    public function insertBefore($item, $newValue)
+    public function insertBefore($item, $newNode)
     {
         if ($this->isEmpty()) {
-            $this->insertFirst($newValue);
+            $this->insertFirst($newNode);
         } else {
-            $newNode = new Node($newValue);
             $temp = $this->head;
 
             while ($temp !== null && $temp->data !== $item) {
@@ -63,11 +63,48 @@ class LinkedList
         }
     }
 
+    //Stack
+
 
 
 
     public function display()
     {
-        return $this->head;
+       return $this->head;
+
     }
+    public function push()
+    {
+        $value = $this->poppedNodes;
+        var_dump($value);
+        $newNode = new Node($value); // Create a new node with the value
+
+        if ($this->isEmpty()) {
+            $this->head = $newNode;
+        } else {
+            $newNode->next = $this->head; // Set the new node's next pointer to the current head
+            $this->head = $newNode; // Update the head of the stack to the new node
+        }
+        $this->poppedNodes = null;
+    }
+
+
+    public function pop()
+    {
+        if ($this->isEmpty()) {
+            return null;
+        }
+
+        $top = $this->head; // Store the current head of the stack in $top
+
+        $value = $top->data; // Store the data of the top node in $value (this is the value being popped)
+        $this->head = $top->next; // Update the head of the stack to the next node (removing the top node)
+
+        $this->poppedNodes = $top->data; // Store the popped node in the poppedNodes array
+
+        return $value; // Return the value of the popped element
+    }
+
+
+
 }
