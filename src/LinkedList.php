@@ -11,7 +11,6 @@ class LinkedList
     {
         $this->head = NULL;
         $this->top = NULL;
-
     }
 
     public function isEmpty()
@@ -50,7 +49,7 @@ class LinkedList
     public function insertBefore($item, $newNode)
     {
         if ($this->isEmpty()) {
-            $this->insertFirst($newNode);
+            $this->insertFirst($newNode, 4);
         } else {
             $temp = $this->head;
 
@@ -65,9 +64,6 @@ class LinkedList
 
     //Stack
 
-
-
-
     public function display()
     {
        return $this->head;
@@ -77,7 +73,7 @@ class LinkedList
     {
         $value = $this->poppedNodes;
         var_dump($value);
-        $newNode = new Node($value); // Create a new node with the value
+        $newNode = new Node($value, 0); // Create a new node with the value
 
         if ($this->isEmpty()) {
             $this->head = $newNode;
@@ -104,7 +100,4 @@ class LinkedList
 
         return $value; // Return the value of the popped element
     }
-
-
-
 }

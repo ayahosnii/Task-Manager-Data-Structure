@@ -24,7 +24,8 @@
                         </h4>
                         <form method="post" class="add-items d-flex">
                             <input type="submit" name="action" value="Undo" class="add btn btn-primary font-weight-bold todo-list-add-btn">
-                            <input type="submit" name="action" value="Redo" class="add btn btn-primary font-weight-bold todo-list-add-btn">
+                            <input type="submit" name="action" value="Redo" class="add btn btn-warning font-weight-bold todo-list-add-btn">
+                            <input type="submit" name="action" value="Dequeue" class="add btn btn-danger font-weight-bold todo-list-add-btn">
 
                             <select name="selectTask">
                                 <option selected disabled>Select a task</option>
@@ -38,12 +39,39 @@
                                 }
                                 ?>
                             </select>
+                            <select name="priority" class="priority-input">
+                                <option value="0">
+                                    No Priority
+                                    <i class="fa fa-flag"></i>
+                                </option>
+                                <option value="1">Priority</option>
+                            </select>
 
 
                             <input type="text" name="task" class="form-control todo-list-input" placeholder="What do you need to do today?">
                             <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn"  name="action" value="Submit">Add</button> </form>
                         <div class="list-wrapper">
-                            <ul class="d-flex flex-column-reverse todo-list">
+                            <ul >
+                                <?php
+                                $temp = $queue->displayQueue();
+                                while ($temp !== null) {
+                                ?>
+                                <li class="text-danger">
+                                    <div class="form-check text-danger">
+                                        <label class="form-check-label text-danger">
+                                            <input class="checkbox" type="checkbox">
+                                            <?= $temp->data . " ";?>
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <?php
+                                    $temp = $temp->next;
+                                }
+                                ?>
+
                                 <?php
                                 $temp = $list->display();
                                 while ($temp !== null) {
@@ -55,6 +83,7 @@
                                             <?= $temp->data . " "; ?>
                                             <i class="input-helper"></i></label>
                                     </div>
+
                                     <i class="remove mdi mdi-close-circle-outline"></i>
                                 </li>
                                 <?php
@@ -80,6 +109,7 @@
     $(function() {
         var todoListItem = $('.todo-list');
         var todoListInput = $('.todo-list-input');
+        var priorityInput = $('.priority-input');
 
 
         todoListItem.on('change', '.checkbox', function() {
@@ -92,10 +122,17 @@
             $(this).closest("li").toggleClass('completed');
 
         });
+        $('#priorityInput').on('change', function() {
+            document.getElementById('priorityForm').submit();
+        });
+        ;
 
         todoListItem.on('click', '.remove', function() {
             $(this).parent().remove();
         });
+
+
+
 
     });
 })(jQuery);
