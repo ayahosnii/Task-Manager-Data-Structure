@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } elseif ($priority === '1') { // Use string comparison here
                 $queue->Enqueue($data, $priority);
-                echo $priority;
             }
         } elseif ($_POST['action'] === 'Undo') {
             $list->pop();
@@ -46,9 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     $temp = $list->display();
+    var_dump($queue->DequeuedData());
 
     //var_dump($temp);
-    var_dump($queue->displayQueue());
+    //var_dump($queue->displayQueue());
     //var_dump($list->Dequeue());
 }
 

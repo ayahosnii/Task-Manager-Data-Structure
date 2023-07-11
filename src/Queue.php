@@ -25,35 +25,11 @@ class Queue
         if ($this->isEmptyQueue()){
             $this->front = $this->rear = $newNode;
         } else {
-            $newNode->next = $this->front;
-            $this->front = $newNode;
+            $this->rear->next = $newNode;
+            $this->rear = $newNode;
+            var_dump($this->front);
         }
     }
-
-/*    public function Dequeue()
-    {
-        if ($this->isEmptyQueue()) {
-            return 'There is no priority in this task';
-        }
-
-        if ($this->front === $this->rear) {
-            $removedNode = $this->front;
-            $this->front = $this->rear = null;
-            return $removedNode->data;
-        }
-
-        $currentNode = $this->front;
-        while ($currentNode->next !== $this->rear) {
-            $currentNode = $currentNode->next;
-        }
-
-        $removedNode = $currentNode->next;
-        $currentNode->next = null;
-        $this->rear = $currentNode;
-
-        return $removedNode->data;
-    }
-*/
 
     public function Dequeue()
     {
@@ -63,20 +39,22 @@ class Queue
             $delvalue = $this->front->data;
             $this->front = $this->rear = null;
         } else {
-            $front = $this->front;
-            $delptr = $front;
-            while ($front->next !== NULL){
-                $currentNode = $currentNode->next;
-            }
+            $delptr = $this->front;
+            $this->deqData = $delptr->data;
+            $this->front = $this->front->next;
+            $delvalue = $delptr->data;
+            return $delvalue;
         }
-
-        return $delptr;
     }
 
+    public function DequeuedData()
+    {
+        return $this->deqData ?? 'There is no data';
+    }
 
 
     public function displayQueue()
     {
-        return $this->rear;
+        return $this->front;
     }
 }
